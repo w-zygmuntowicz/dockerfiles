@@ -1,3 +1,7 @@
+// Based on https://github.com/rabits/dockerfiles and https://github.com/benlau/qtci
+// QT-CI Project
+// License: Apache-2.0
+
 function Controller() {
     installer.installationFinished.connect(function() {
         gui.clickButton(buttons.NextButton, 3000);
