@@ -1,4 +1,3 @@
-# Based on https://github.com/rabits/dockerfiles
 # License: Apache-2.0
 
 FROM jonathonf/manjaro
