@@ -15,8 +15,16 @@ ENV QT_BIN_PACKAGE=gcc_64
 ENV QT_DESKTOP ${QT_PATH}/${QT_VERSION}/${QT_BIN_PACKAGE}
 ENV PATH $QT_DESKTOP/bin:$PATH
 
+# Basic tools
 RUN pacman -Syu --noconfirm
-RUN pacman -S qbs wget git sed openssh --noconfirm
+RUN pacman -S wget git sed openssh --noconfirm
+
+# Compilers
+RUN pacman -S gcc --noconfirm
+RUN pacman -S clang --noconfirm
+
+# Qbs
+RUN pacman -S qbs --noconfirm
 
 # Download Qt toolchains
 RUN mkdir -p /tmp/qt
