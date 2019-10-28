@@ -17,7 +17,10 @@ ENV PATH $QT_DESKTOP/bin:$PATH
 
 # Basic tools
 RUN pacman -Syu --noconfirm
-RUN pacman -S wget git sed openssh xorg-server-xvfb --noconfirm
+RUN pacman -S wget git sed openssh --noconfirm
+
+# Xvfb is needed to run GUI tests
+RUN pacman -S xorg-server-xvfb --noconfirm
 
 # Compilers
 RUN pacman -S gcc --noconfirm
