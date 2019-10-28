@@ -17,7 +17,7 @@ ENV PATH $QT_DESKTOP/bin:$PATH
 
 # Basic tools
 RUN pacman -Syu --noconfirm
-RUN pacman -S wget git sed openssh --noconfirm
+RUN pacman -S wget git sed openssh xorg-server-xvfb --noconfirm
 
 # Compilers
 RUN pacman -S gcc --noconfirm
