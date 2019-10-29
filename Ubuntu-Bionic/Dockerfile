@@ -20,7 +20,7 @@ RUN apt-get update --yes
 RUN apt-get install git openssh-server sed wget --yes
 
 # Xvfb is needed to run GUI tests on a headless system
-RUN sudo apt-get install xvfb --yes
+RUN apt-get install xvfb --yes
 
 # Compilers
 RUN apt-get install g++ --yes
