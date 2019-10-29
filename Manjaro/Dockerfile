@@ -17,7 +17,7 @@ ENV PATH $QT_DESKTOP/bin:$PATH
 
 # Basic tools
 RUN pacman -Syu --noconfirm
-RUN pacman -S wget git sed openssh --noconfirm
+RUN pacman -S wget git sed openssh sudo --noconfirm
 
 # Xvfb is needed to run GUI tests on a headless system
 RUN pacman -S xorg-server-xvfb --noconfirm
@@ -46,7 +46,6 @@ RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo
 RUN rm -rf /tmp/qt
 
 # Add group & user + sudo
-RUN pacman -S sudo --noconfirm
 RUN useradd -m user
 RUN echo "user ALL=NOPASSWD: ALL" > /etc/sudoers.d/user
 
