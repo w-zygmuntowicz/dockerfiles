@@ -19,12 +19,14 @@ ENV PATH $QT_DESKTOP/bin:$PATH
 RUN apt-get update
 RUN apt-get install curl git openssh-server sed sudo wget --yes
 
+# Qt basic requirements (https://doc.qt.io/qt-5/linux.html)
+RUN apt-get install build-essential libgl1-mesa-dev --yes
+
+# Clang
+RUN apt-get install clang --yes
+
 # Xvfb is needed to run GUI tests on a headless system
 RUN apt-get install xvfb --yes
-
-# Compilers
-RUN apt-get install g++ --yes
-RUN apt-get install clang --yes
 
 # Qbs
 RUN apt-get install qbs --yes
