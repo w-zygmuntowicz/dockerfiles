@@ -1,6 +1,6 @@
 # License: Apache-2.0
 
-FROM ubuntu:bionic
+FROM ubuntu:19.04
 
 ARG QT_VERSION=5.13.1
 ARG QT_INSTALLER_FILE=qt-opensource-linux-x64-${QT_VERSION}.run
