@@ -16,18 +16,18 @@ ENV QT_DESKTOP ${QT_PATH}/${QT_VERSION}/${QT_BIN_PACKAGE}
 ENV PATH $QT_DESKTOP/bin:$PATH
 
 # Basic tools
-RUN sudo apt-get update --yes
-RUN sudo apt-get install git openssh sed wget --yes
+RUN apt-get update --yes
+RUN apt-get install git openssh sed wget --yes
 
 # Xvfb is needed to run GUI tests on a headless system
 RUN sudo apt-get install xvfb --yes
 
 # Compilers
-RUN sudo apt-get install g++ --yes
-RUN sudo apt-get install clang --yes
+RUN apt-get install g++ --yes
+RUN apt-get install clang --yes
 
 # Qbs
-RUN sudo apt-get install qbs --yes
+RUN apt-get install qbs --yes
 
 # Download Qt toolchains
 RUN mkdir -p /tmp/qt
