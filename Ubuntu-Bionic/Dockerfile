@@ -45,6 +45,7 @@ RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo
 RUN rm -rf /tmp/qt
 
 # Add group & user + sudo
+RUN apt-get install sudo
 RUN useradd -m user
 RUN echo "user ALL=NOPASSWD: ALL" > /etc/sudoers.d/user
 
