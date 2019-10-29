@@ -16,7 +16,7 @@ ENV QT_DESKTOP ${QT_PATH}/${QT_VERSION}/${QT_BIN_PACKAGE}
 ENV PATH $QT_DESKTOP/bin:$PATH
 
 # Basic tools
-RUN apt-get update --yes
+RUN apt-get update
 RUN apt-get install curl git openssh-server sed sudo wget --yes
 
 # Xvfb is needed to run GUI tests on a headless system
