@@ -17,7 +17,7 @@ ENV PATH $QT_DESKTOP/bin:$PATH
 
 # Basic tools
 RUN apt-get update --yes
-RUN apt-get install git openssh sed wget --yes
+RUN apt-get install git openssh-server sed wget --yes
 
 # Xvfb is needed to run GUI tests on a headless system
 RUN sudo apt-get install xvfb --yes
