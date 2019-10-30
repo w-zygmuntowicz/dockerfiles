@@ -28,9 +28,6 @@ RUN apt-get install clang --yes
 # Xvfb is needed to run GUI tests on a headless system
 RUN apt-get install xvfb --yes
 
-# XCB library required for most common on Linux xcb platform plugin.
-RUN apt-get install libx11-xcb1 --yes
-
 # Qbs
 RUN apt-get install qbs --yes
 
