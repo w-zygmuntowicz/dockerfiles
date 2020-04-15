@@ -21,6 +21,8 @@ RUN apt-get install curl git openssh-server sed sudo wget --yes
 
 # Qt basic requirements (https://doc.qt.io/qt-5/linux.html)
 RUN apt-get install build-essential libgl1-mesa-dev --yes
+RUN apt-get install libfontconfig --yes
+RUN apt-get install libxrender1 --yes
 
 # Clang
 RUN apt-get install clang --yes
