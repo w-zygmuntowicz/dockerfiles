@@ -29,6 +29,7 @@ RUN apt-get install clang --yes
 RUN apt-get install xvfb --yes
 
 # Qbs
+RUN apt-get install --yes software-properties-common
 RUN add-apt-repository --yes ppa:mardy/qbs-on-lts
 RUN apt-get update
 RUN apt-get install qbs --yes
