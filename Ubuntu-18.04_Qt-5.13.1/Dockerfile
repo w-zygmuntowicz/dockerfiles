@@ -21,14 +21,15 @@ RUN apt-get install curl git openssh-server sed sudo wget --yes
 
 # Qt basic requirements (https://doc.qt.io/qt-5/linux.html)
 RUN apt-get install build-essential libgl1-mesa-dev --yes
-# Qt X11 Requirements
+
+# Qt X11 requirements
 RUN apt-get install libfontconfig --yes
-RUN apt-get install libxrender --yes
-RUN apt-get install libxcb-render libxcb-render-util libxcb-shape libxcb-randr libxcb-xfixes libxcb-sync libxcb-shm libxcb-icccm libxcb-keysyms libxcb-image --yes
-RUN apt-get install libxkbcommon libxkbcommon-x11 --yes
-RUN apt-get install libfreetype --yes
-RUN apt-get install libxi --yes
-RUN apt-get install libxext --yes
+RUN apt-get install libxrender1 --yes
+RUN apt-get install libxcb-render0 libxcb-render-util0 libxcb-shape0 libxcb-randr0 libxcb-xfixes0 libxcb-sync1 libxcb-shm0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0 --yes
+RUN apt-get install libxkbcommon0 libxkbcommon-x11-0 --yes
+RUN apt-get install libfreetype6 --yes
+RUN apt-get install libxi6 --yes
+RUN apt-get install libxext6 --yes
 
 # Clang
 RUN apt-get install clang --yes
