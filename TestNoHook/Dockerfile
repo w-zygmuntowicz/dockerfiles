@@ -21,7 +21,7 @@ ENV PATH $QT_DESKTOP/bin:$PATH
 
 RUN echo "Test build"
 RUN echo $QT_USER
-RUN echo pwd
+RUN pwd
 
 # Add group & user + sudo
 RUN useradd -m user
