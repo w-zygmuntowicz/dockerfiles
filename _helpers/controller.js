@@ -9,13 +9,23 @@ function Controller() {
     installer.setMessageBoxAutomaticAnswer("OverwriteTargetDirectory", QMessageBox.Yes);
     installer.setMessageBoxAutomaticAnswer("installationErrorWithRetry", QMessageBox.Ignore);
 }
+
 Controller.prototype.WelcomePageCallback = function() {
     console.log("Welcome Page");
     gui.clickButton(buttons.NextButton, 3000);
 }
+
 Controller.prototype.CredentialsPageCallback = function() {
+    console.log("Credentials Page");
+    var qtUser = installer.environmentVariable("QT_USER");
+    var qtPassword = installer.environmentVariable("QT_PASSWORD");
+    var emailLineEdit = gui.currentPageWidget().loginWidget.EmailLineEdit;
+    var passwordLineEdit = gui.currentPageWidget().loginWidget.PasswordLineEdit;
+    emailLineEdit.setText(qtUser);
+    passwordLineEdit.setText(qtPassword);
     gui.clickButton(buttons.CommitButton, 3000);
 }
+
 Controller.prototype.ComponentSelectionPageCallback = function() {
     console.log("Select components");
     function trim(str) {
@@ -36,11 +46,13 @@ Controller.prototype.ComponentSelectionPageCallback = function() {
     }
     gui.clickButton(buttons.NextButton, 3000);
 }
+
 Controller.prototype.IntroductionPageCallback = function() {
     console.log("Introduction Page");
     console.log("Retrieving meta information from remote repository");
     gui.clickButton(buttons.NextButton, 3000);
 }
+
 Controller.prototype.TargetDirectoryPageCallback = function() {
     var targetPath = installer.environmentVariable("QT_PATH") || "/opt/qt";
     console.log("Set target installation page: " + targetPath);
@@ -50,6 +62,7 @@ Controller.prototype.TargetDirectoryPageCallback = function() {
     }
     gui.clickButton(buttons.NextButton, 3000);
 }
+
 Controller.prototype.LicenseAgreementPageCallback = function() {
     console.log("Accept license agreement");
     var widget = gui.currentPageWidget();
@@ -58,10 +71,27 @@ Controller.prototype.LicenseAgreementPageCallback = function() {
     }
     gui.clickButton(buttons.NextButton, 3000);
 }
+
+Controller.prototype.ObligationsPageCallback = function()
+{
+    var page = gui.pageWidgetByObjectName("ObligationsPage");
+    page.obligationsAgreement.setChecked(true);
+    page.completeChanged();
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.DynamicTelemetryPluginFormCallback = function()
+{
+    var page = gui.pageWidgetByObjectName("DynamicTelemetryPluginForm");
+    page.statisticGroupBox.disableStatisticRadioButton.setChecked(true);
+    gui.clickButton(buttons.NextButton);
+}
+
 Controller.prototype.ReadyForInstallationPageCallback = function() {
     console.log("Ready to install");
     gui.clickButton(buttons.CommitButton, 3000);
 }
+
 Controller.prototype.FinishedPageCallback = function() {
     var widget = gui.currentPageWidget();
     if (widget.LaunchQtCreatorCheckBoxForm) {
