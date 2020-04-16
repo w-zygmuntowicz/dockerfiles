@@ -19,10 +19,8 @@ Controller.prototype.CredentialsPageCallback = function() {
     console.log("Credentials Page");
     var qtUser = installer.environmentVariable("QT_USER");
     var qtPassword = installer.environmentVariable("QT_PASSWORD");
-    var emailLineEdit = gui.currentPageWidget().loginWidget.EmailLineEdit;
-    var passwordLineEdit = gui.currentPageWidget().loginWidget.PasswordLineEdit;
-    emailLineEdit.setText(qtUser);
-    passwordLineEdit.setText(qtPassword);
+    gui.currentPageWidget().loginWidget.EmailLineEdit.setText(qtUser);
+    gui.currentPageWidget().loginWidget.PasswordLineEdit.setText(qtPassword);
     gui.clickButton(buttons.CommitButton, 3000);
 }
 
