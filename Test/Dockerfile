@@ -26,6 +26,7 @@ RUN echo $QT_USER
 RUN echo $REPO
 RUN echo pwd
 RUN ls -al
+COPY ../_helpers/controller.js /tmp/qt/controller.js
 COPY _helpers/controller.js /tmp/qt/controller.js
 
 # Add group & user + sudo
