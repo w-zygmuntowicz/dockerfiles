@@ -1,0 +1,27 @@
+# License: Apache-2.0
+
+FROM ubuntu:18.04
+
+ARG QT_VERSION=5.13.1
+ARG QT_INSTALLER_FILE=qt-opensource-linux-x64-${QT_VERSION}.run
+ARG QT_INSTALLER_PATH="/tmp/qt/${QT_INSTALLER_FILE}"
+ARG QT_URL="https://ftp.fau.de/qtproject/archive/qt/__QT_MAJMIN__/${QT_VERSION}/${QT_INSTALLER_FILE}"
+ARG QT_SHA256="0cd82c80287a783bd5db1339b6184803d57517c9450ffe16f505254853f0a41f"
+ARG QT_MD5="21c3b16f851697fa8da8009f73694373"
+ARG QT_SUM_FILE="/tmp/qt/sum.txt"
+
+ENV QT_PATH=/opt/Qt
+ENV QT_BIN_PACKAGE=gcc_64
+ENV QT_DESKTOP ${QT_PATH}/${QT_VERSION}/${QT_BIN_PACKAGE}
+ENV PATH $QT_DESKTOP/bin:$PATH
+
+RUN echo "Test build"
+RUN echo $QT_USER
+
+# Add group & user + sudo
+RUN useradd -m user
+RUN echo "user ALL=NOPASSWD: ALL" > /etc/sudoers.d/user
+
+USER user
+WORKDIR /home/user
+ENV HOME /home/user
