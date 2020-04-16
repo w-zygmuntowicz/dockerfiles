@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --build-arg QT_PASSWORD=$QT_PASSWORD --build-arg QT_USER=$QT_USER --build-arg REPO=$DOCKER_REPO -t $IMAGE_NAME /
+docker build -t $IMAGE_NAME --build-arg QT_PASSWORD=$QT_PASSWORD --build-arg QT_USER=$QT_USER .
