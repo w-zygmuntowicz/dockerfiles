@@ -4,6 +4,7 @@ FROM ubuntu:18.04
 
 #ARG QT_USER
 #ARG QT_PASSWORD
+ARG REPO
 ARG QT_VERSION=5.13.1
 ARG QT_INSTALLER_FILE=qt-opensource-linux-x64-${QT_VERSION}.run
 ARG QT_INSTALLER_PATH="/tmp/qt/${QT_INSTALLER_FILE}"
@@ -14,6 +15,7 @@ ARG QT_SUM_FILE="/tmp/qt/sum.txt"
 
 #ENV QT_USER $QT_USER
 #ENV QT_PASSWORD $QT_PASSWORD
+ENV REPO $REPO
 ENV QT_PATH=/opt/Qt
 ENV QT_BIN_PACKAGE=gcc_64
 ENV QT_DESKTOP ${QT_PATH}/${QT_VERSION}/${QT_BIN_PACKAGE}
@@ -21,6 +23,7 @@ ENV PATH $QT_DESKTOP/bin:$PATH
 
 RUN echo "Test build"
 RUN echo $QT_USER
+RUN echo $REPO
 RUN echo pwd
 RUN ls -al
 COPY _helpers/controller.js /tmp/qt/controller.js
