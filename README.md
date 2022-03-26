@@ -37,3 +37,5 @@ Following command installs MSVC 2019 binaries along with Qt Serial Port module:
 QT_USER=<user> QT_PASSWORD=<password> QT_PACKAGES_PREFIX=qt.qt6.624 QT_PACKAGES=addons.qtserialport,win64_msvc2019_64 ./qt-unified-windows-x86-4.3.0-1-online.exe -d --script qt-online-installer-controller.js
 ```
 
+Additionaly `QT_COMPANY` environmental variable can be used to inject the company name in Open Source Obligations page.
+
