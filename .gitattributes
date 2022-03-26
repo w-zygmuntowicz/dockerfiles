@@ -1,0 +1,3 @@
+# Prevent "commmand not found" errors on Windows caused by CRLF.
+_helpers/extract-qt-installer.sh -crlf
+
