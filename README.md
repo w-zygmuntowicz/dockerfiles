@@ -39,3 +39,4 @@ QT_USER=<user> QT_PASSWORD=<password> QT_PACKAGES_PREFIX=qt.qt6.624 QT_PACKAGES=
 
 Additionaly `QT_COMPANY` environmental variable can be used to inject the company name in Open Source Obligations page.
 
+QPA plugin can be specified as usual with `QT_QPA_PLATFORM` environmental variable (e.g. `QT_QPA_PLATFORM=minimal`).
