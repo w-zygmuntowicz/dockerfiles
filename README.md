@@ -17,12 +17,12 @@ Use Docker Hub tag format `<hub-user>/<repo-name>[:<tag>]` for `<docker-tag>` to
 docker push <docker-tag>
 ```
 
-## Qt installer scripting API
+## Qt installer scripting API controller
 
 You can use provided [JavaScript controller](_helpers/qt-online-installer-4.3-controller.js) from [_helpers](_helpers) directory for headless
 install of Qt binaries.
 
-First you must determine names of packages to install. Qt online installer [search](https://doc.qt.io/qtinstallerframework/ifw-cli.html#summary-of-commands)
+First this you must determine names of packages to install. Qt online installer [search](https://doc.qt.io/qtinstallerframework/ifw-cli.html#summary-of-commands)
 command can help. For example following (Windows) installer command looks for available Qt 6.2.4 packagess:
 
 ```
@@ -37,3 +37,6 @@ Following command installs MSVC 2019 binaries along with Qt Serial Port module:
 QT_USER=<user> QT_PASSWORD=<password> QT_PACKAGES_PREFIX=qt.qt6.624 QT_PACKAGES=addons.qtserialport,win64_msvc2019_64 ./qt-unified-windows-x86-4.3.0-1-online.exe -d --script qt-online-installer-controller.js
 ```
 
+Additionaly `QT_COMPANY` environmental variable can be used to inject the company name in Open Source Obligations page.
+
+QPA plugin can be specified as usual with `QT_QPA_PLATFORM` environmental variable (e.g. `QT_QPA_PLATFORM=minimal`).
