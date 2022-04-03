@@ -19,7 +19,7 @@ docker push <docker-tag>
 
 ## Qt installer scripting API controller
 
-You can use provided [JavaScript controller](_helpers/qt-online-installer-4.3-controller.js) from [_helpers](_helpers) directory for headless
+You can use provided [JavaScript controller](_helpers/controller=qt-online-4.3.js) from [_helpers](_helpers) directory for headless
 install of Qt binaries.
 
 First this you must determine names of packages to install. Qt online installer [search](https://doc.qt.io/qtinstallerframework/ifw-cli.html#summary-of-commands)
