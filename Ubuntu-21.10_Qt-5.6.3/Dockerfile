@@ -1,9 +1,9 @@
+# syntax=docker/dockerfile:1.2
+
 # License: Apache-2.0
 
 FROM ubuntu:21.10
 
-ARG QT_USER
-ARG QT_PASSWORD
 ARG QT_VERSION=5.6.3
 ARG QT_INSTALLER_FILE=qt-opensource-linux-x64-${QT_VERSION}.run
 ARG QT_INSTALLER_PATH="/tmp/qt/${QT_INSTALLER_FILE}"
@@ -12,8 +12,6 @@ ARG QT_SHA256="0cd82c80287a783bd5db1339b6184803d57517c9450ffe16f505254853f0a41f"
 ARG QT_MD5="594c4f25ba5e788e64874dc092135862"
 ARG QT_SUM_FILE="/tmp/qt/sum.txt"
 
-ENV QT_USER $QT_USER
-ENV QT_PASSWORD $QT_PASSWORD
 ENV TZ=Europe/Warsaw
 ENV QT_PATH=/opt/Qt
 ENV QT_BIN_PACKAGE=gcc_64
@@ -56,13 +54,14 @@ RUN md5sum -c $QT_SUM_FILE
 
 # Unpack Qt toolchains & clean
 COPY _helpers/controller-qt-5.6.3.js /tmp/qt/controller.js
-COPY _helpers/extract-qt-installer.sh /tmp/qt/extract-qt-installer.sh
-RUN chmod a+x /tmp/qt/extract-qt-installer.sh
-RUN QT_PACKAGES=qt.$(echo "${QT_VERSION}" | tr -d .).${QT_BIN_PACKAGE} /tmp/qt/extract-qt-installer.sh $QT_INSTALLER_PATH /tmp/qt/controller.js "$QT_PATH"
+RUN chmod a+x $QT_INSTALLER_PATH
+RUN --mount=type=secret,id=qtaccount . /run/secrets/qtaccount && echo "$QT_USER" QT_PACKAGES=qt.$(echo "${QT_VERSION}" | tr -d .).${QT_BIN_PACKAGE} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -v --script /tmp/qt/controller.js
+RUN unset QT_USER && unset QT_PASSWORD
 
 # Clean
-#RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \;
-#RUN rm -rf /tmp/qt
+RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \;
+RUN rm -rf /tmp/qt
+RUN rm ~/.local/share/Qt/qtaccount.ini
 
 # Add group & user + sudo
 RUN useradd -m user

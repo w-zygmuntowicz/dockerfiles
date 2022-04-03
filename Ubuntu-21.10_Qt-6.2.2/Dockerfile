@@ -1,12 +1,8 @@
+# syntax=docker/dockerfile:1.2
+
 # License: Apache-2.0
 
 FROM ubuntu:21.10
-
-# Qt account credentials
-#
-# Note: these variables normally should be overriden by Docker build args (`docker build --build-arg QT_USER=<user> --build-arg QT_PASSWORD=<password>`).
-ARG QT_USER=
-ARG QT_PASSWORD=
 
 # Qt version
 ARG QT_MAJOR=6
@@ -64,11 +60,14 @@ RUN curl -fLs -o $QT_INSTALLER_PATH $QT_URL
 # Download and install Qt
 COPY _helpers/controller-qt-online-"${QT_INSTALLER_MAJOR}"."${QT_INSTALLER_MINOR}".js /tmp/qt/controller.js
 RUN chmod a+x $QT_INSTALLER_PATH
-RUN QT_USER="${QT_USER}" QT_PASSWORD="${QT_PASSWORD}" QT_PACKAGES_PREFIX=qt.qt${QT_MAJOR}.$(echo "${QT_VERSION}" | tr -d .) QT_PACKAGES=${QT_PACKAGES} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -d --script /tmp/qt/controller.js
+RUN --mount=type=secret,id=qtaccount . /run/secrets/qtaccount && QT_PACKAGES_PREFIX=qt.qt${QT_MAJOR}.$(echo "${QT_VERSION}" | tr -d .) QT_PACKAGES=${QT_PACKAGES} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -d --script /tmp/qt/controller.js
+RUN unset QT_USER && unset QT_PASSWORD
 
 # Clean
 RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \;
 RUN rm -rf /tmp/qt
+RUN find / -name "qtaccount.ini"
+RUN rm ~/.local/share/Qt/qtaccount.ini
 
 # Add group & user + sudo
 RUN useradd -m user
