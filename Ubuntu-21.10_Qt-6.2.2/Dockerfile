@@ -57,15 +57,14 @@ RUN apt-get install xvfb --yes
 # Qbs
 RUN apt-get install qbs --yes
 
-# Download Qt toolchains
+# Download Qt installer
 RUN mkdir -p /tmp/qt
 RUN curl -fLs -o $QT_INSTALLER_PATH $QT_URL
 
-# Unpack Qt toolchains & clean
-COPY _helpers/qt-online-installer-controller.js /tmp/qt/qt-online-installer-controller.js
-COPY _helpers/extract-qt-installer.sh /tmp/qt/extract-qt-installer.sh
-RUN chmod a+x /tmp/qt/extract-qt-installer.sh
-RUN QT_USER="${QT_USER}" QT_PASSWORD="${QT_PASSWORD}" QT_PACKAGES_PREFIX=qt.qt${QT_MAJOR}.$(echo "${QT_VERSION}" | tr -d .) QT_PACKAGES=${QT_PACKAGES} /tmp/qt/extract-qt-installer.sh $QT_INSTALLER_PATH /tmp/qt/qt-online-installer-controller.js "$QT_PATH"
+# Download and install Qt
+COPY _helpers/qt-online-installer-"${QT_INSTALLER_MAJOR}"."${QT_INSTALLER_MINOR}"-controller.js /tmp/qt/qt-online-installer-controller.js
+RUN chmod a+x $QT_INSTALLER_PATH
+RUN QT_USER="${QT_USER}" QT_PASSWORD="${QT_PASSWORD}" QT_PACKAGES_PREFIX=qt.qt${QT_MAJOR}.$(echo "${QT_VERSION}" | tr -d .) QT_PACKAGES=${QT_PACKAGES} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -d --script /tmp/qt/qt-online-installer-controller.js
 
 # Clean
 RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \;
