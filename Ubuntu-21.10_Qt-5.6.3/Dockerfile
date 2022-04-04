@@ -55,13 +55,12 @@ RUN md5sum -c $QT_SUM_FILE
 # Unpack Qt toolchains & clean
 COPY _helpers/controller-qt-5.6.3.js /tmp/qt/controller.js
 RUN chmod a+x $QT_INSTALLER_PATH
-RUN --mount=type=secret,id=qtaccount . /run/secrets/qtaccount && echo "$QT_USER" QT_PACKAGES=qt.$(echo "${QT_VERSION}" | tr -d .).${QT_BIN_PACKAGE} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -v --script /tmp/qt/controller.js
+RUN --mount=type=secret,id=qtaccount . /run/secrets/qtaccount && QT_PACKAGES=qt.$(echo "${QT_VERSION}" | tr -d .).${QT_BIN_PACKAGE} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -v --script /tmp/qt/controller.js
 RUN unset QT_USER && unset QT_PASSWORD
 
 # Clean
 RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \;
 RUN rm -rf /tmp/qt
-RUN rm ~/.local/share/Qt/qtaccount.ini
 
 # Add group & user + sudo
 RUN useradd -m user
