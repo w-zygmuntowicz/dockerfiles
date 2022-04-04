@@ -16,7 +16,7 @@ export QT_PASSWORD=<password>
 
 Make sure that this file has Unix end line characters (`dos2unix` tool may be handy on Windows).
 
-A typical command looks like this:
+A typical build command looks like this:
 
 ```
 docker build --secret id=qtaccount,src=../qtaccount.sh . -f <Distro-Version_Qt-Version>/Dockerfile -t <docker-tag>
