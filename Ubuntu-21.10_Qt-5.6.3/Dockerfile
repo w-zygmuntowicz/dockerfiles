@@ -37,6 +37,9 @@ RUN apt-get install libfreetype6 --yes
 RUN apt-get install libxi6 --yes
 RUN apt-get install libxext6 --yes
 
+# Qt Multimedia requirements
+RUN apt-get install libpulse0 --yes
+
 # Clang
 RUN apt-get install clang --yes
 
