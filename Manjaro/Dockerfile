@@ -36,10 +36,9 @@ RUN curl -fLs -o $QT_INSTALLER_PATH $(echo $QT_URL | sed "s/__QT_MAJMIN__/$(echo
 RUN md5sum -c $QT_SUM_FILE
 
 # Unpack Qt toolchains & clean
-COPY _helpers/controller.js /tmp/qt/controller.js
-COPY _helpers/extract-qt-installer.sh /tmp/qt/extract-qt-installer.sh
-RUN chmod a+x /tmp/qt/extract-qt-installer.sh
-RUN QT_PACKAGES=qt.qt5.$(echo "${QT_VERSION}" | tr -d .).${QT_BIN_PACKAGE} /tmp/qt/extract-qt-installer.sh $QT_INSTALLER_PATH /tmp/qt/controller.js "$QT_PATH"
+COPY _helpers/controller-qt-5.13.1.js /tmp/qt/controller.js
+RUN chmod a+x $QT_INSTALLER_PATH
+RUN QT_PACKAGES=qt.qt5.$(echo "${QT_VERSION}" | tr -d .).${QT_BIN_PACKAGE} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -v --script /tmp/qt/controller.js
 
 # Clean
 RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \;
