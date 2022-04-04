@@ -10,8 +10,8 @@ Create `../qtaccount.sh` file with Qt account credentials:
 
 ```
 #!/bin/sh
-QT_USER=<user>
-QT_PASSWORD=<password>
+export QT_USER=<user>
+export QT_PASSWORD=<password>
 ```
 
 A typical command looks like this:
