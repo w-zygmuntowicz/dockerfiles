@@ -14,6 +14,8 @@ export QT_USER=<user>
 export QT_PASSWORD=<password>
 ```
 
+Make sure that this file has Unix end line characters (`dos2unix` tool may be handy on Windows).
+
 A typical command looks like this:
 
 ```
