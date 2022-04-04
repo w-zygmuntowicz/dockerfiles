@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker build -t $IMAGE_NAME --build-arg QT_PASSWORD=$QT_PASSWORD --build-arg QT_USER=$QT_USER -f Dockerfile ..
