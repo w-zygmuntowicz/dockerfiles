@@ -15,6 +15,11 @@ ENV QT_BIN_PACKAGE=gcc_64
 ENV QT_DESKTOP ${QT_PATH}/${QT_VERSION}/${QT_BIN_PACKAGE}
 ENV PATH $QT_DESKTOP/bin:$PATH
 
+# Older releases of Ubuntu are moved to archive server
+RUN sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get dist-upgrade --yes
+
 # Basic tools
 RUN apt-get update
 RUN apt-get install curl git openssh-server sed sudo wget --yes
@@ -40,11 +45,12 @@ RUN md5sum -c $QT_SUM_FILE
 # Unpack Qt toolchains & clean
 COPY _helpers/controller-qt-5.13.1.js /tmp/qt/controller.js
 RUN chmod a+x $QT_INSTALLER_PATH
-RUN QT_PACKAGES=qt.qt5.$(echo "${QT_VERSION}" | tr -d .).${QT_BIN_PACKAGE} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -v --script /tmp/qt/controller.js
+RUN --mount=type=secret,id=qtaccount . /run/secrets/qtaccount && QT_PACKAGES=qt.qt5.$(echo "${QT_VERSION}" | tr -d .).${QT_BIN_PACKAGE} QT_QPA_PLATFORM=minimal $QT_INSTALLER_PATH -v --script /tmp/qt/controller.js
 
 # Clean
 RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \;
 RUN rm -rf /tmp/qt
+RUN rm ~/.local/share/Qt/qtaccount.ini
 
 # Add group & user + sudo
 RUN useradd -m user
