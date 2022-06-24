@@ -33,7 +33,6 @@ ENV QT_PATH=/opt/Qt
 ENV QT_DESKTOP ${QT_PATH}/${QT_VERSION}/${QT_BIN_PACKAGE}
 ENV PATH $QT_DESKTOP/bin:$PATH
 
-
 # Configure timezone
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -66,7 +65,6 @@ RUN unset QT_USER && unset QT_PASSWORD
 # Clean
 RUN find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \;
 RUN rm -rf /tmp/qt
-RUN find / -name "qtaccount.ini"
 RUN rm ~/.local/share/Qt/qtaccount.ini
 
 # Add group & user + sudo
