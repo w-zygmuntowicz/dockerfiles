@@ -7,7 +7,7 @@ FROM ubuntu:22.04
 # Qt version
 ARG QT_MAJOR=6
 ARG QT_MINOR=2
-ARG QT_MICRO=2
+ARG QT_MICRO=4
 
 # Qt installer version
 ARG QT_INSTALLER_MAJOR=4
