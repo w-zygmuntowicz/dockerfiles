@@ -40,8 +40,11 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update
 RUN apt-get install curl git openssh-server sed sudo wget --yes
 
-# Qt basic requirements (https://doc.qt.io/qt-5/linux.html)
+# Qt basic requirements (https://doc.qt.io/qt-6/linux.html)
 RUN apt-get install build-essential libgl1-mesa-dev --yes
+
+# See https://bugreports.qt.io/browse/QTIFW-2557
+RUN apt-get install libxcb-xinerama0 --yes
 
 # Clang
 RUN apt-get install clang --yes
