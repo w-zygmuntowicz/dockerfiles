@@ -19,7 +19,7 @@ ARG QT_INSTALLER_MICRO=1
 # Note: available components can be listed by invoking Qt installer with `search` option, prefix is added automatically based on Qt
 # version.
 ARG QT_BIN_PACKAGE=gcc_64
-ARG QT_PACKAGES="addons.qtserialport,addons.qtserialbus,${QT_BIN_PACKAGE}"
+ARG QT_PACKAGES="addons.qtserialport,addons.qtserialbus,addons.qtscxml,${QT_BIN_PACKAGE}"
 
 # Arguments below typically do not need to be modified as they are deduced from previous ones.
 ARG QT_VERSION="${QT_MAJOR}.${QT_MINOR}.${QT_MICRO}"
