@@ -31,7 +31,7 @@ ARG QT_URL="https://ftp.fau.de/qtproject/archive/online_installers/${QT_INSTALLE
 ENV TZ=Europe/Warsaw
 ENV QT_PATH=/opt/Qt
 ENV QT_DESKTOP ${QT_PATH}/${QT_VERSION}/${QT_BIN_PACKAGE}
-ENV PATH $QT_DESKTOP/bin:$PATH
+ENV PATH $QT_DESKTOP/bin:$QT_DESKTOP/libexec:$PATH
 
 # Configure timezone
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
