@@ -46,6 +46,9 @@ RUN apt-get install build-essential libgl1-mesa-dev --yes
 # See https://bugreports.qt.io/browse/QTIFW-2557
 RUN apt-get install libxcb-xinerama0 --yes
 
+# qt.qpa.plugin: From 6.5.0, xcb-cursor0 or libxcb-cursor0 is needed to load the Qt xcb platform plugin.
+RUN apt-get install libxcb-cursor0 --yes
+
 # Clang
 RUN apt-get install clang --yes
 
